@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ExampleJSON2 } from '@helpers/_index';
 import { showNoti } from '@shares/common';
 import { SAVED_JSON_EXCEL, SAVED_JSON_EXCEL_2 } from '@shares/constant';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { NgxFileDropEntry } from 'ngx-file-drop';
+import { WINDOW } from 'src/window';
 import * as XLSX from 'xlsx';
 
 
@@ -14,6 +15,7 @@ import * as XLSX from 'xlsx';
 })
 export class JsonExcelComponent implements OnInit, OnDestroy {
 
+  private _window = inject(WINDOW);
   public editorOptions: JsonEditorOptions;
   public editorOptions2: JsonEditorOptions;
   public initialData: any;
@@ -49,7 +51,7 @@ export class JsonExcelComponent implements OnInit, OnDestroy {
     this.initialData2 = this.StringToReadableObject(localStorage.getItem(SAVED_JSON_EXCEL_2) || sampleJSON);
     this.visibleData = JSON.parse(JSON.stringify(this.initialData));
     this.visibleData2 = JSON.parse(JSON.stringify(this.initialData2));
-    window.onbeforeunload = () => this.ngOnDestroy();
+    this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   showJson(d: Event) {

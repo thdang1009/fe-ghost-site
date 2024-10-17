@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '@services/_index';
 import { Router } from '@angular/router';
 import { Title, Meta } from "@angular/platform-browser";
 import { POST_TYPE } from '@shares/enum';
+import { WINDOW } from 'src/window';
 
 @Component({
   selector: 'app-post-detail',
@@ -12,6 +13,7 @@ import { POST_TYPE } from '@shares/enum';
 })
 export class PostDetailComponent implements OnInit, OnDestroy {
 
+  private _window = inject(WINDOW);
   ready = false;
   item;
   idDebounce = undefined;
@@ -48,7 +50,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       this.meta.updateTag({ property: 'og:creator', content: creator });
       this.meta.updateTag({ property: 'og:image', content: img });
     });
-    window.onbeforeunload = () => this.ngOnDestroy();
+    this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngOnDestroy(): void {

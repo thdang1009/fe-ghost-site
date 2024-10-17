@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, DoCheck, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ReadingInfoService } from '@services/reading-info/reading-info.service';
 import { showNoti } from '@shares/common';
 import { PDF_OBJ } from '@shares/constant';
 import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
+import { WINDOW } from 'src/window';
 
 @Component({
   selector: 'app-ghost-pdf-viewer',
@@ -16,6 +17,7 @@ export class GhostPdfViewerComponent implements OnInit, OnDestroy, AfterViewInit
   @Input() src: string;
   @Input() pdfFileName: string;
   @Input() isAdminView: boolean = false;
+  private _window = inject(WINDOW);
 
   // pdf var
   pdfSrc;
@@ -61,7 +63,7 @@ export class GhostPdfViewerComponent implements OnInit, OnDestroy, AfterViewInit
         clearInterval(intervalId);
       }
     }, 100);
-    window.onbeforeunload = () => this.ngOnDestroy();
+    this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngAfterViewInit(): void {

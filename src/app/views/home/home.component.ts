@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookPermission } from '@shares/enum';
 import { AuthService, PostService } from '@services/_index';
+import { WINDOW } from 'src/window';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,6 +10,7 @@ import { AuthService, PostService } from '@services/_index';
 })
 export class HomeComponent implements OnInit {
 
+  private _window = inject(WINDOW);
   BookPermission = BookPermission;
   isLogined = false;
   hasBackofficePermission = false;
@@ -36,7 +38,7 @@ export class HomeComponent implements OnInit {
     this.hasBackofficePermission = this.authService.isLogin();
     this.activeRoute.queryParams
       .subscribe(params => {
-        const path = window.location.href
+        const path = this._window.location.href
         if (path && path.includes('tag')) {
           this.isFilteredByTag = true;
         }

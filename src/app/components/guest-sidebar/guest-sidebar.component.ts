@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@services/_index';
 import { checkIsInPDFView } from '@shares/common';
+import { WINDOW } from 'src/window';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -44,6 +45,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class GuestSidebarComponent implements OnInit {
 
+  private _window = inject(WINDOW);
   _isInPDFView;
   menuItems: any[];
   isLogined = false;
@@ -88,7 +90,7 @@ export class GuestSidebarComponent implements OnInit {
   }
 
   isMobileMenu() {
-    if ($(window).width() > 991) {
+    if ($(this._window).width() > 991) {
       return false;
     }
     return true;

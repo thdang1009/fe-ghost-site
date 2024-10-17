@@ -1,5 +1,5 @@
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AnalyticService, AuthService, SocketioService } from './_services/_index';
 import { handleSocketGuestMessage, handleSocketReadingInfo } from './_shares/common';
 import { SK_GUEST_MESSAGE_RESPONSE, SK_READING_INFO_REALTIME_UPDATE } from './_shares/constant';
@@ -7,6 +7,7 @@ import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/ro
 import { filter, map } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { ReadingInfoService } from '@services/reading-info/reading-info.service';
+import { WINDOW } from 'src/window';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,6 +16,7 @@ import { ReadingInfoService } from '@services/reading-info/reading-info.service'
 export class AppComponent implements OnInit, OnDestroy {
   public initialData: any;
   public visibleData: any;
+  private _window = inject(WINDOW);
 
   constructor(
     private analyticService: AnalyticService,
@@ -35,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     this.checkSocket();
     this.initAutoTitle();
-    window.onbeforeunload = () => this.ngOnDestroy();
+    this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   initAutoTitle() {

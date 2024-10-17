@@ -99,7 +99,8 @@ export function compareWithFunc(a, b) {
 }
 export function openExternalLink(link) {
   console.info('dangth', link);
-  window.open(link, '_blank');
+  // window.open(link, '_blank');
+  alert('Not implemented yet');
 }
 export function mapResourceName(input): FePDFInfo {
   return ({

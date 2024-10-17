@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { WINDOW } from 'src/window';
 
 @Component({
   selector: 'app-donation',
@@ -7,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DonationComponent implements OnInit {
 
+  private _window = inject(WINDOW);
   constructor() { }
 
   ngOnInit(): void {
-    window.open('https://www.buymeacoffee.com/thdang1009', '_blank');
+    this._window.open('https://www.buymeacoffee.com/thdang1009', '_blank');
   }
 
 }

@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ExampleText, ExampleText2 } from '@helpers/_index';
 import { showNoti } from '@shares/common';
 import { SAVED_TEXT, SAVED_TEXT_2 } from '@shares/constant';
 import diff from 'diff-sequences';
+import { WINDOW } from 'src/window';
 
 @Component({
   selector: 'app-text-diff',
@@ -22,6 +23,7 @@ export class TextDiffComponent implements OnInit, OnDestroy {
   public visibleData2: any;
   public highlights2: any;
   isLoadingResults = false;
+  private _window = inject(WINDOW);
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class TextDiffComponent implements OnInit, OnDestroy {
     this.visibleData1 = localStorage.getItem(SAVED_TEXT) || ExampleText;
     this.visibleData2 = localStorage.getItem(SAVED_TEXT_2) || ExampleText2;
 
-    window.onbeforeunload = () => this.ngOnDestroy();
+    this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngOnDestroy(): void {

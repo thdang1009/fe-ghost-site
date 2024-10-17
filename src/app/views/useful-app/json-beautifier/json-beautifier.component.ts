@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ExampleJSON } from '@helpers/_index';
 import { showNoti } from '@shares/common';
 import { SAVED_JSON, SAVED_JSON_2 } from '@shares/constant';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import diff from 'diff-sequences';
+import { WINDOW } from 'src/window';
 
 @Component({
   selector: 'app-json-beautifier',
@@ -13,6 +14,7 @@ import diff from 'diff-sequences';
 export class JsonBeautifierComponent implements OnInit, OnDestroy {
   @ViewChild('text1') text1: ElementRef;
   @ViewChild('text2') text2: ElementRef;
+  private _window = inject(WINDOW);
 
   public editorOptions: JsonEditorOptions;
   public editorOptions2: JsonEditorOptions;
@@ -44,7 +46,7 @@ export class JsonBeautifierComponent implements OnInit, OnDestroy {
     this.initialData2 = this.StringToReadableObject(localStorage.getItem(SAVED_JSON_2) || sampleJSON);
     this.visibleData = JSON.parse(JSON.stringify(this.initialData));
     this.visibleData2 = JSON.parse(JSON.stringify(this.initialData2));
-    window.onbeforeunload = () => this.ngOnDestroy();
+    this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   showJson(d: Event) {

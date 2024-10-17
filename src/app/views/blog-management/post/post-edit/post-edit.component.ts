@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Post } from '@models/post';
 import { EventEmitter } from '@angular/core';
 import { POST_STATUS, POST_TYPE } from '@shares/enum';
@@ -6,6 +6,7 @@ import { DOCUMENT } from '@angular/common';
 import { TagService, CategoryService, FileService } from '@services/_index';
 import { compareWithFunc, showNoti } from '@shares/common';
 import { Observable } from 'rxjs';
+import { WINDOW } from 'src/window';
 export interface PostSaveWrapper {
   item: Post;
   isBack: boolean;
@@ -18,6 +19,7 @@ export interface PostSaveWrapper {
 })
 export class PostEditComponent implements OnInit, OnDestroy {
 
+  private _window = inject(WINDOW);
   @Input() itemSelected = {} as any;
   @Output() save: EventEmitter<PostSaveWrapper> = new EventEmitter<PostSaveWrapper>();
 
@@ -65,7 +67,7 @@ export class PostEditComponent implements OnInit, OnDestroy {
       showNoti('Get list file error. ' + err, 'danger');
     });
     this.oldObject = JSON.stringify(this.itemSelected);
-    window.onbeforeunload = () => this.ngOnDestroy();
+    this._window.onbeforeunload = () => this.ngOnDestroy();
     this.unSave = true;
   }
 
@@ -151,7 +153,7 @@ export class PostEditComponent implements OnInit, OnDestroy {
   }
 
   public asyncOnAdding = (name): Observable<any> => {
-    const confirm = window.confirm(`Do you really want to add tag: "${name}"?`);
+    const confirm = this._window.confirm(`Do you really want to add tag: "${name}"?`);
     if (!confirm) {
       return null;
     }

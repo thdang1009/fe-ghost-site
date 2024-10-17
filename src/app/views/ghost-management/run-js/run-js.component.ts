@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ExampleCode } from '@helpers/_index';
 import { showNoti } from '@shares/common';
 import { SAVED_CODE } from '@shares/constant';
 import { CodeModel } from '@ngstack/code-editor';
+import { WINDOW } from 'src/window';
 declare const EVERYTHING = 'everything';
 @Component({
   selector: 'app-run-js',
@@ -11,6 +12,7 @@ declare const EVERYTHING = 'everything';
 })
 export class RunJsComponent implements OnInit, OnDestroy {
 
+  private _window = inject(WINDOW);
   theme = 'vs-dark';
 
   codeModel: CodeModel = {
@@ -47,7 +49,7 @@ export class RunJsComponent implements OnInit, OnDestroy {
       const TS = () => {
         return (new Date).toLocaleString("sv", { timeZone: 'UTC' }) + "Z"
       }
-      window.onerror = function (error, url, line) {
+      this._window.onerror = function (error, url, line) {
         console[EVERYTHING].push({
           type: "exception",
           timeStamp: TS(),
@@ -55,7 +57,7 @@ export class RunJsComponent implements OnInit, OnDestroy {
         })
         return false;
       }
-      window.onunhandledrejection = function (e) {
+      this._window.onunhandledrejection = function (e) {
         console[EVERYTHING].push({
           type: "promiseRejection",
           timeStamp: TS(),
@@ -100,7 +102,7 @@ export class RunJsComponent implements OnInit, OnDestroy {
         }
       });
     })();
-    window.onbeforeunload = () => this.ngOnDestroy();
+    this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   saveOnLocal() {
@@ -119,7 +121,7 @@ export class RunJsComponent implements OnInit, OnDestroy {
     const code = this.codeModel.value;
     try {
       if (console.log['ghost_cheat'] === true) {
-        console.log = window['ghost_console'];
+        console.log = this._window['ghost_console'];
         console.log['ghost_cheat'] = false;
       }
       this.handleV1(code);
@@ -150,9 +152,9 @@ export class RunJsComponent implements OnInit, OnDestroy {
       return arr.map(el => (typeof el === 'object' || el === undefined) ? JSON.stringify(el) : el).join(' ');
     }
     const store = [];
-    window['ghost_console'] = console.log;
+    this._window['ghost_console'] = console.log;
     console.log = function (...value) {
-      window['ghost_console'](...value);
+      this._window['ghost_console'](...value);
       const joinedValue = myJoin(value);
       store.push(joinedValue);
       return value;

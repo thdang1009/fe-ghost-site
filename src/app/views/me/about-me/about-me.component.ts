@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
 import { GuestMessageService } from '@services/_index';
 import { showNoti } from '@shares/common';
+import { WINDOW } from 'src/window';
 
 export interface PortfolioData {
   src: string,
@@ -18,6 +19,7 @@ export class AboutMeComponent implements OnInit, AfterViewInit {
   @ViewChild('portfolio') portfolioElement: ElementRef;
   @ViewChild('contact') contactElement: ElementRef;
   @ViewChild('aboutMeContent') aboutMeContent: ElementRef;
+  private _window = inject(WINDOW);
 
 
   isRunning = false;
@@ -102,9 +104,9 @@ export class AboutMeComponent implements OnInit, AfterViewInit {
   }
 
   openAD() {
-    window.open('https://ad.zalopay.vn', '_blank');
+    this._window.open('https://ad.zalopay.vn', '_blank');
   }
   openMC() {
-    window.open('https://mc.zalopay.vn', '_blank');
+    this._window.open('https://mc.zalopay.vn', '_blank');
   }
 }

@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { Location, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import PerfectScrollbar from 'perfect-scrollbar';
 import $ from 'jquery';
+import { WINDOW } from 'src/window';
 
 @Component({
   selector: 'app-guest-layout',
@@ -14,6 +15,7 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
+  private _window = inject(WINDOW);
 
   constructor(public location: Location, private router: Router) { }
 
@@ -36,14 +38,14 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationStart) {
         if (event.url !== this.lastPoppedUrl) {
-          this.yScrollStack.push(window.scrollY);
+          this.yScrollStack.push(this._window.scrollY);
         }
       } else if (event instanceof NavigationEnd) {
         if (event.url === this.lastPoppedUrl) {
           this.lastPoppedUrl = undefined;
-          window.scrollTo(0, this.yScrollStack.pop());
+          this._window.scrollTo(0, this.yScrollStack.pop());
         } else {
-          window.scrollTo(0, 0);
+          this._window.scrollTo(0, 0);
         }
       }
     });
@@ -51,11 +53,11 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
       elemMainPanel.scrollTop = 0;
       elemSidebar.scrollTop = 0;
     });
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+    if (this._window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
       // TODO document why this block is empty
     }
 
-    const window_width = $(window).width();
+    const window_width = $(this._window).width();
     const $sidebar = $('.sidebar');
     const $sidebar_responsive = $('body > .navbar-collapse');
     const $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -68,6 +70,7 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
 
     }
 
+    const self = this;
     $('.fixed-plugin a').click(function (event) {
       /*
           Alex if we click on switch, stop propagation of the event,
@@ -76,8 +79,8 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
       if ($(this).hasClass('switch-trigger')) {
         if (event.stopPropagation) {
           event.stopPropagation();
-        } else if (window.event) {
-          window.event.cancelBubble = true;
+        } else if (self._window.event) {
+          self._window.event.cancelBubble = true;
         }
       }
     });
@@ -141,7 +144,7 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
     }
   }
   runOnRouteChange(): void {
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+    if (this._window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
       const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
       const ps = new PerfectScrollbar(elemMainPanel);
       ps.update();
@@ -156,7 +159,7 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
   }
 
   isMobileMenu() {
-    if ($(window).width() > 991) {
+    if ($(this._window).width() > 991) {
       return false;
     }
     return true;

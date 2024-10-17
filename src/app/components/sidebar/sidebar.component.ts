@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SocketioService } from '@services/_index';
 import { checkIsInPDFView, handleSocketGuestMessage, handleSocketReadingInfo } from '@shares/common';
 import { SK_GUEST_MESSAGE_RESPONSE, SK_READING_INFO_REALTIME_UPDATE } from '@shares/constant';
 import { AuthService } from '@services/_index';
+import { WINDOW } from 'src/window';
 
 declare const $: any;
 
@@ -79,6 +80,7 @@ export class SidebarComponent implements OnInit {
   permission = 'GUEST';
   stringToSearch = '';
   _isInPDFView: boolean = false;
+  private _window = inject(WINDOW);
 
   constructor(
     private authService: AuthService,
@@ -158,7 +160,7 @@ export class SidebarComponent implements OnInit {
       });
   }
   isMobileMenu() {
-    if ($(window).width() > 991) {
+    if ($(this._window).width() > 991) {
       return false;
     }
     return true;

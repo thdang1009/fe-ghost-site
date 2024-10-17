@@ -1,22 +1,23 @@
 import { HttpClient, HttpEvent, HttpEventType } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { WINDOW } from "src/window";
 
 @Injectable({ providedIn: 'root' })
 export class FileDownloadService {
-
+  private _window = inject(WINDOW);
 
   constructor(private http: HttpClient) { }
 
 
   /**
    * download file with report progress and save dialog.
-   * 
-   * @param url 
-   * @param fileName 
-   * 
+   *
+   * @param url
+   * @param fileName
+   *
    * @return Observable contains progress by percent
-   * 
+   *
    */
   downloadFile(url: string, fileName: string): Observable<number> {
     return new Observable(observer => {
@@ -35,14 +36,14 @@ export class FileDownloadService {
   }
 
   private saveDownloadResult(blob: Blob, fileName) {
-    if (window.navigator && (window.navigator as any).msSaveOrOpenBlob) {
-      (window.navigator as any).msSaveOrOpenBlob(
+    if (this._window.navigator && (this._window.navigator as any).msSaveOrOpenBlob) {
+      (this._window.navigator as any).msSaveOrOpenBlob(
         blob,
         fileName
       );
     }
     else {
-      const windowURL = window.URL || window['webkitURL'];
+      const windowURL = this._window['URL'] || this._window['webkitURL'];
       const downloadLink = document.createElement('a');
       const urlBlob = windowURL.createObjectURL(new Blob([blob]));
       downloadLink.href = urlBlob;
