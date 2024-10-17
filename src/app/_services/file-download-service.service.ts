@@ -1,3 +1,4 @@
+import { DOCUMENT } from "@angular/common";
 import { HttpClient, HttpEvent, HttpEventType } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -6,6 +7,7 @@ import { WINDOW } from "src/window";
 @Injectable({ providedIn: 'root' })
 export class FileDownloadService {
   private _window = inject(WINDOW);
+  private _document = inject(DOCUMENT);
 
   constructor(private http: HttpClient) { }
 
@@ -44,7 +46,7 @@ export class FileDownloadService {
     }
     else {
       const windowURL = this._window['URL'] || this._window['webkitURL'];
-      const downloadLink = document.createElement('a');
+      const downloadLink = this._document.createElement('a');
       const urlBlob = windowURL.createObjectURL(new Blob([blob]));
       downloadLink.href = urlBlob;
       downloadLink.download = fileName;

@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, DoCheck, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -18,6 +19,7 @@ export class GhostPdfViewerComponent implements OnInit, OnDestroy, AfterViewInit
   @Input() pdfFileName: string;
   @Input() isAdminView: boolean = false;
   private _window = inject(WINDOW);
+  private _document = inject(DOCUMENT);
 
   // pdf var
   pdfSrc;
@@ -175,10 +177,10 @@ export class GhostPdfViewerComponent implements OnInit, OnDestroy, AfterViewInit
 
   openFullscreen() {
     if (!this.elem) {
-      this.elem = document.getElementById('view-port-to-zoom');
+      this.elem = this._document.getElementById('view-port-to-zoom');
     }
-    const isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null);
-    this.elem = document.documentElement;
+    const isInFullScreen = (this._document.fullscreenElement && this._document.fullscreenElement !== null);
+    this.elem = this._document.documentElement;
 
     if (!isInFullScreen) {
       if (this.elem.requestFullscreen) {
@@ -191,14 +193,14 @@ export class GhostPdfViewerComponent implements OnInit, OnDestroy, AfterViewInit
         this.elem.msRequestFullscreen();
       }
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document['webkitExitFullscreen']) {
-        document['webkitExitFullscreen']();
-      } else if (document['mozCancelFullScreen']) {
-        document['mozCancelFullScreen']();
-      } else if (document['msExitFullscreen']) {
-        document['msExitFullscreen']();
+      if (this._document.exitFullscreen) {
+        this._document.exitFullscreen();
+      } else if (this._document['webkitExitFullscreen']) {
+        this._document['webkitExitFullscreen']();
+      } else if (this._document['mozCancelFullScreen']) {
+        this._document['mozCancelFullScreen']();
+      } else if (this._document['msExitFullscreen']) {
+        this._document['msExitFullscreen']();
       }
     }
   }
@@ -232,10 +234,10 @@ export class GhostPdfViewerComponent implements OnInit, OnDestroy, AfterViewInit
 
       this.totalPages = pdf.numPages;
 
-      const pdfViewer = document.getElementsByTagName('pdf-viewer')[0];
+      const pdfViewer = this._document.getElementsByTagName('pdf-viewer')[0];
       const pdfViewerWidth = pdfViewer['offsetWidth'];
 
-      const textLayers = document.getElementsByClassName('textLayer');
+      const textLayers = this._document.getElementsByClassName('textLayer');
       let isBigger = false;
       Array.from(textLayers).forEach(textLayer => {
         if (textLayer['offsetWidth'] > pdfViewerWidth) {

@@ -4,6 +4,7 @@ import { showNoti } from '@shares/common';
 import { SAVED_CODE } from '@shares/constant';
 import { CodeModel } from '@ngstack/code-editor';
 import { WINDOW } from 'src/window';
+import { DOCUMENT } from '@angular/common';
 declare const EVERYTHING = 'everything';
 @Component({
   selector: 'app-run-js',
@@ -12,6 +13,7 @@ declare const EVERYTHING = 'everything';
 })
 export class RunJsComponent implements OnInit, OnDestroy {
 
+  private _document = inject(DOCUMENT);
   private _window = inject(WINDOW);
   theme = 'vs-dark';
 
@@ -88,7 +90,7 @@ export class RunJsComponent implements OnInit, OnDestroy {
     (function () {
       let timer;
       let metaflag = false;
-      document.addEventListener('keydown', function (event) {
+      this._document.addEventListener('keydown', function (event) {
         if (event.ctrlKey || event.metaKey || event.which === 19) {
           //      ctrl           cmd(mac)         break/pause key(?)
           metaflag = true;

@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pdf-control-panel',
@@ -18,6 +19,7 @@ export class PdfControlPanelComponent implements OnInit {
   ];
   zoomListLength = this.zoomList.length;
 
+  private _document = inject(DOCUMENT);
   @Output() changePageValue = new EventEmitter<number>();
   @Output() changeZoomValue = new EventEmitter<number>();
   @Output() shakeThePdf = new EventEmitter<number>();
@@ -94,12 +96,12 @@ export class PdfControlPanelComponent implements OnInit {
       .then(response => response.blob())
       .then(blob => {
         const blobURL = URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = this._document.createElement('a');
         a.href = blobURL;
         a.style.display = 'none';
 
         if (filename && filename.length) a.download = filename;
-        document.body.appendChild(a);
+        this._document.body.appendChild(a);
         a.click();
       })
       .catch(() => { });

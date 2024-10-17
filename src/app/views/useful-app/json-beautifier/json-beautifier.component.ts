@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ExampleJSON } from '@helpers/_index';
 import { showNoti } from '@shares/common';
@@ -15,6 +16,7 @@ export class JsonBeautifierComponent implements OnInit, OnDestroy {
   @ViewChild('text1') text1: ElementRef;
   @ViewChild('text2') text2: ElementRef;
   private _window = inject(WINDOW);
+  private _document = inject(DOCUMENT);
 
   public editorOptions: JsonEditorOptions;
   public editorOptions2: JsonEditorOptions;
@@ -66,8 +68,8 @@ export class JsonBeautifierComponent implements OnInit, OnDestroy {
     this.isLoadingResults = true;
     const result = this.callFindDiff() || [];
 
-    const left = document.querySelectorAll('#json-editor-left .ace_line') || [];
-    const right = document.querySelectorAll('#json-editor-right .ace_line') || [];
+    const left = this._document.querySelectorAll('#json-editor-left .ace_line') || [];
+    const right = this._document.querySelectorAll('#json-editor-right .ace_line') || [];
     let currentLineLeft = 0;
     let currentLineRight = 0;
     const coloredRight = [];

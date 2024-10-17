@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { checkIsInPDFView } from '@shares/common';
 import { AuthService } from '@services/_index';
 // import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { ROUTES } from '../guest-sidebar/guest-sidebar.component';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-guest-navbar',
   templateUrl: './guest-navbar.component.html',
@@ -18,6 +19,7 @@ export class GuestNavbarComponent implements OnInit {
   private sidebarVisible: boolean;
   stringToSearch = '';
   _isInPDFView;
+  private _document = inject(DOCUMENT);
 
   constructor(
     private authService: AuthService,
@@ -33,7 +35,7 @@ export class GuestNavbarComponent implements OnInit {
     this.router.events.subscribe((event) => {
       this.sidebarClose();
       /* tslint:disable-next-line */
-      var $layer: any = document.getElementsByClassName('close-layer')[0];
+      var $layer: any = this._document.getElementsByClassName('close-layer')[0];
       if ($layer) {
         $layer.remove();
         this.mobile_menu_visible = 0;
@@ -79,17 +81,15 @@ export class GuestNavbarComponent implements OnInit {
     this.router.navigate(['logout']);
   }
   sidebarToggle() {
-    // const toggleButton = this.toggleButton;
-    // const body = document.getElementsByTagName('body')[0];
     /* tslint:disable-next-line */
-    var $toggle = document.getElementsByClassName('navbar-toggler')[0];
+    var $toggle = this._document.getElementsByClassName('navbar-toggler')[0];
 
     if (this.sidebarVisible === false) {
       this.sidebarOpen();
     } else {
       this.sidebarClose();
     }
-    const body = document.getElementsByTagName('body')[0];
+    const body = this._document.getElementsByTagName('body')[0];
 
     if (this.mobile_menu_visible === 1) {
       // $('html').removeClass('nav-open');
@@ -110,14 +110,14 @@ export class GuestNavbarComponent implements OnInit {
       }, 430);
 
       /* tslint:disable-next-line */
-      var $layer = document.createElement('div');
+      var $layer = this._document.createElement('div');
       $layer.setAttribute('class', 'close-layer');
 
 
       if (body.querySelectorAll('.main-panel')) {
-        document.getElementsByClassName('main-panel')[0].appendChild($layer);
+        this._document.getElementsByClassName('main-panel')[0].appendChild($layer);
       } else if (body.classList.contains('off-canvas-sidebar')) {
-        document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
+        this._document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
       }
 
       setTimeout(function () {
@@ -141,7 +141,7 @@ export class GuestNavbarComponent implements OnInit {
 
   sidebarOpen() {
     const toggleButton = this.toggleButton;
-    const body = document.getElementsByTagName('body')[0];
+    const body = this._document.getElementsByTagName('body')[0];
     setTimeout(function () {
       toggleButton.classList.add('toggled');
     }, 500);
@@ -151,7 +151,7 @@ export class GuestNavbarComponent implements OnInit {
     this.sidebarVisible = true;
   };
   sidebarClose() {
-    const body = document.getElementsByTagName('body')[0];
+    const body = this._document.getElementsByTagName('body')[0];
     this.toggleButton.classList.remove('toggled');
     this.sidebarVisible = false;
     body.classList.remove('nav-open');

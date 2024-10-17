@@ -8,7 +8,8 @@ export const environment = {
   apiUrl: `http://localhost:3000`,
   gaCode: 'G-FWH80SC06E',
   // SOCKET_ENDPOINT: 'http://localhost:3200'
-  SOCKET_ENDPOINT: 'https://dangtrinh.site'
+  SOCKET_ENDPOINT: 'https://dangtrinh.site',
+  clientURL: 'http://localhost:4500'
 };
 
 /*

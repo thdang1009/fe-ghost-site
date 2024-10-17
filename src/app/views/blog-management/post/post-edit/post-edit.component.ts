@@ -49,13 +49,13 @@ export class PostEditComponent implements OnInit, OnDestroy {
   categorySelected = [];
 
   constructor(
-    @Inject(DOCUMENT) private document,
+    @Inject(DOCUMENT) private _document,
     private tagService: TagService,
     private categoryService: CategoryService,
     private fileService: FileService) { }
 
   ngOnInit(): void {
-    this.elem = document.getElementById('edit-post-container');
+    this.elem = this._document.getElementById('edit-post-container');
 
     this.getCategories();
     this.getTags();
@@ -164,7 +164,7 @@ export class PostEditComponent implements OnInit, OnDestroy {
   openFullscreen() {
     this.splitVertical();
     if (!this.elem) {
-      this.elem = document.getElementById('edit-post-container');
+      this.elem = this._document.getElementById('edit-post-container');
     }
     if (this.elem.requestFullscreen) {
       this.elem.requestFullscreen();
@@ -182,17 +182,17 @@ export class PostEditComponent implements OnInit, OnDestroy {
 
   /* Close fullscreen */
   closeFullscreen() {
-    if (document.exitFullscreen) {
-      this.document.exitFullscreen();
-    } else if (this.document.mozCancelFullScreen) {
+    if (this._document.exitFullscreen) {
+      this._document.exitFullscreen();
+    } else if (this._document.mozCancelFullScreen) {
       /* Firefox */
-      this.document.mozCancelFullScreen();
-    } else if (this.document.webkitExitFullscreen) {
+      this._document.mozCancelFullScreen();
+    } else if (this._document.webkitExitFullscreen) {
       /* Chrome, Safari and Opera */
-      this.document.webkitExitFullscreen();
-    } else if (this.document.msExitFullscreen) {
+      this._document.webkitExitFullscreen();
+    } else if (this._document.msExitFullscreen) {
       /* IE/Edge */
-      this.document.msExitFullscreen();
+      this._document.msExitFullscreen();
     }
   }
   splitHorizontal() {

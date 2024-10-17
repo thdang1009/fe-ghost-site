@@ -1,3 +1,5 @@
+import { environment } from "@environments/environment";
+
 export const CONSTANT = {
   USER_INFO: 'USER_INFO',
   TOKEN: 'token',
@@ -12,7 +14,7 @@ export const CONSTANT = {
 
 export const DEBOUCE_TIME = 200;
 
-export const PDF_ASSETS_PATH = 'https://' + document.domain + '/assets/pdf';
+export const PDF_ASSETS_PATH = 'https://' + environment.clientURL + '/assets/pdf';
 
 export const SAVED_CODE = 'SAVED_CODE';
 

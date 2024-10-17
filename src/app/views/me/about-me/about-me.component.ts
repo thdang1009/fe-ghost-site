@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
 import { GuestMessageService } from '@services/_index';
@@ -20,6 +21,7 @@ export class AboutMeComponent implements OnInit, AfterViewInit {
   @ViewChild('contact') contactElement: ElementRef;
   @ViewChild('aboutMeContent') aboutMeContent: ElementRef;
   private _window = inject(WINDOW);
+  private _document = inject(DOCUMENT);
 
 
   isRunning = false;
@@ -77,7 +79,7 @@ export class AboutMeComponent implements OnInit, AfterViewInit {
     // call api save guest message
   }
   scrollTo(s) {
-    const element = document.getElementById(s);
+    const element = this._document.getElementById(s);
     element.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
   downloadCV() {
