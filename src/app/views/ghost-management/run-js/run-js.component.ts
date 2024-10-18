@@ -51,21 +51,21 @@ export class RunJsComponent implements OnInit, OnDestroy {
       const TS = () => {
         return (new Date).toLocaleString("sv", { timeZone: 'UTC' }) + "Z"
       }
-      this._window.onerror = function (error, url, line) {
-        console[EVERYTHING].push({
-          type: "exception",
-          timeStamp: TS(),
-          value: { error, url, line }
-        })
-        return false;
-      }
-      this._window.onunhandledrejection = function (e) {
-        console[EVERYTHING].push({
-          type: "promiseRejection",
-          timeStamp: TS(),
-          value: e.reason
-        })
-      }
+      // this._window.onerror = function (error, url, line) {
+      //   console[EVERYTHING].push({
+      //     type: "exception",
+      //     timeStamp: TS(),
+      //     value: { error, url, line }
+      //   })
+      //   return false;
+      // }
+      // this._window.onunhandledrejection = function (e) {
+      //   console[EVERYTHING].push({
+      //     type: "promiseRejection",
+      //     timeStamp: TS(),
+      //     value: e.reason
+      //   })
+      // }
 
       const hookLogType = (logType) => {
         const original = console[logType].bind(console)
@@ -104,7 +104,7 @@ export class RunJsComponent implements OnInit, OnDestroy {
         }
       });
     })();
-    this._window.onbeforeunload = () => this.ngOnDestroy();
+    // this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   saveOnLocal() {
@@ -123,7 +123,7 @@ export class RunJsComponent implements OnInit, OnDestroy {
     const code = this.codeModel.value;
     try {
       if (console.log['ghost_cheat'] === true) {
-        console.log = this._window['ghost_console'];
+        // console.log = this._window['ghost_console'];
         console.log['ghost_cheat'] = false;
       }
       this.handleV1(code);
@@ -154,9 +154,9 @@ export class RunJsComponent implements OnInit, OnDestroy {
       return arr.map(el => (typeof el === 'object' || el === undefined) ? JSON.stringify(el) : el).join(' ');
     }
     const store = [];
-    this._window['ghost_console'] = console.log;
+    // this._window['ghost_console'] = console.log;
     console.log = function (...value) {
-      this._window['ghost_console'](...value);
+      // this._window['ghost_console'](...value);
       const joinedValue = myJoin(value);
       store.push(joinedValue);
       return value;

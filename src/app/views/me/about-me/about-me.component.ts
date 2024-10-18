@@ -106,9 +106,9 @@ export class AboutMeComponent implements OnInit, AfterViewInit {
   }
 
   openAD() {
-    this._window.open('https://ad.zalopay.vn', '_blank');
+    // this._window.open('https://ad.zalopay.vn', '_blank');
   }
   openMC() {
-    this._window.open('https://mc.zalopay.vn', '_blank');
+    // this._window.open('https://mc.zalopay.vn', '_blank');
   }
 }

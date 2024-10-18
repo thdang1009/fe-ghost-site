@@ -21,7 +21,7 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
   constructor(public location: Location, private router: Router) { }
 
   ngOnInit() {
-    const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+    const isWindows = false; // navigator.platform.indexOf('Win') > -1 ? true : false;
 
     if (isWindows && !this._document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {
       // if we are on windows OS we activate the perfectScrollbar function
@@ -39,14 +39,14 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationStart) {
         if (event.url !== this.lastPoppedUrl) {
-          this.yScrollStack.push(this._window.scrollY);
+          // this.yScrollStack.push(this._window.scrollY);
         }
       } else if (event instanceof NavigationEnd) {
         if (event.url === this.lastPoppedUrl) {
           this.lastPoppedUrl = undefined;
-          this._window.scrollTo(0, this.yScrollStack.pop());
+          // this._window.scrollTo(0, this.yScrollStack.pop());
         } else {
-          this._window.scrollTo(0, 0);
+          // this._window.scrollTo(0, 0);
         }
       }
     });
@@ -54,22 +54,22 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
       elemMainPanel.scrollTop = 0;
       elemSidebar.scrollTop = 0;
     });
-    if (this._window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      // TODO document why this block is empty
-    }
+    // if (this._window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+    // TODO document why this block is empty
+    // }
 
-    const window_width = $(this._window).width();
+    // const window_width = $(this._window).width();
     const $sidebar = $('.sidebar');
     const $sidebar_responsive = $('body > .navbar-collapse');
     const $sidebar_img_container = $sidebar.find('.sidebar-background');
 
 
-    if (window_width > 767) {
-      if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-        $('.fixed-plugin .dropdown').addClass('open');
-      }
+    // if (window_width > 767) {
+    //   if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+    //     $('.fixed-plugin .dropdown').addClass('open');
+    //   }
 
-    }
+    // }
 
     const self = this;
     $('.fixed-plugin a').click(function (event) {
@@ -145,24 +145,24 @@ export class GuestLayoutComponent implements OnInit, AfterViewInit {
     }
   }
   runOnRouteChange(): void {
-    if (this._window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      const elemMainPanel = <HTMLElement>this._document.querySelector('.main-panel');
-      const ps = new PerfectScrollbar(elemMainPanel);
-      ps.update();
-    }
+    // if (this._window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+    //   const elemMainPanel = <HTMLElement>this._document.querySelector('.main-panel');
+    //   const ps = new PerfectScrollbar(elemMainPanel);
+    //   ps.update();
+    // }
   }
   isMac(): boolean {
     let bool = false;
-    if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
-      bool = true;
-    }
+    // if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
+    //   bool = true;
+    // }
     return bool;
   }
 
   isMobileMenu() {
-    if ($(this._window).width() > 991) {
-      return false;
-    }
+    // if ($(this._window).width() > 991) {
+    //   return false;
+    // }
     return true;
   };
 }

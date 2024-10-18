@@ -48,7 +48,7 @@ export class JsonBeautifierComponent implements OnInit, OnDestroy {
     this.initialData2 = this.StringToReadableObject(localStorage.getItem(SAVED_JSON_2) || sampleJSON);
     this.visibleData = JSON.parse(JSON.stringify(this.initialData));
     this.visibleData2 = JSON.parse(JSON.stringify(this.initialData2));
-    this._window.onbeforeunload = () => this.ngOnDestroy();
+    // this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   showJson(d: Event) {

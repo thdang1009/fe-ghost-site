@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open --host localhost --disable-host-check --port 4500 -c development",
+    "start": "ng build && ng serve --open --host localhost --disable-host-check --port 4500 -c development",
     "test": "ng test",
     "test:coverage": "ng test --no-watch --code-coverage",
-    "build": "ng build",
+    "build": "ng build --aot --configuration production --output-hashing bundles",
     "watch": "ng build --watch --configuration development",
     "e2e": "ng e2e",
     "serve:ssr:fe-ghost-site": "ng build && node dist/fe-ghost-site/server/server.mjs"

@@ -129,6 +129,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "src/proxy.conf.json",
+            "verbose": true
+          },
           "configurations": {
             "production": {
               "buildTarget": "fe-ghost-site:build:production"

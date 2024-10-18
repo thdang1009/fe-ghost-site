@@ -38,10 +38,10 @@ export class HomeComponent implements OnInit {
     this.hasBackofficePermission = this.authService.isLogin();
     this.activeRoute.queryParams
       .subscribe(params => {
-        const path = this._window.location.href
-        if (path && path.includes('tag')) {
-          this.isFilteredByTag = true;
-        }
+        // const path = this._window.location.href
+        // if (path && path.includes('tag')) {
+        //   this.isFilteredByTag = true;
+        // }
         this.postService.getPublicPosts(params)
           .subscribe(posts => {
             this.allPosts = (posts || []).reverse();

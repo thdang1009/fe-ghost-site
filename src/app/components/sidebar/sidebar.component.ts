@@ -6,8 +6,6 @@ import { SK_GUEST_MESSAGE_RESPONSE, SK_READING_INFO_REALTIME_UPDATE } from '@sha
 import { AuthService } from '@services/_index';
 import { WINDOW } from 'src/window';
 
-declare const $: any;
-
 declare interface Child {
   path: string;
   title: string;
@@ -160,10 +158,10 @@ export class SidebarComponent implements OnInit {
       });
   }
   isMobileMenu() {
-    if ($(this._window).width() > 991) {
-      return false;
-    }
-    return true;
+    // if ($(this._window).width() > 991) {
+    //   return false;
+    // }
+    // return true;
   };
 
   search() {

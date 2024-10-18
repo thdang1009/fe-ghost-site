@@ -67,7 +67,7 @@ export class PostEditComponent implements OnInit, OnDestroy {
       showNoti('Get list file error. ' + err, 'danger');
     });
     this.oldObject = JSON.stringify(this.itemSelected);
-    this._window.onbeforeunload = () => this.ngOnDestroy();
+    // this._window.onbeforeunload = () => this.ngOnDestroy();
     this.unSave = true;
   }
 
@@ -153,10 +153,10 @@ export class PostEditComponent implements OnInit, OnDestroy {
   }
 
   public asyncOnAdding = (name): Observable<any> => {
-    const confirm = this._window.confirm(`Do you really want to add tag: "${name}"?`);
-    if (!confirm) {
-      return null;
-    }
+    // const confirm = this._window.confirm(`Do you really want to add tag: "${name}"?`);
+    // if (!confirm) {
+    //   return null;
+    // }
     return this.tagService.createTagWithName(name);
   }
 

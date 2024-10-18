@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     this.checkSocket();
     this.initAutoTitle();
-    this._window.onbeforeunload = () => this.ngOnDestroy();
+    // this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   initAutoTitle() {

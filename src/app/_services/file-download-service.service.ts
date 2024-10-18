@@ -38,21 +38,21 @@ export class FileDownloadService {
   }
 
   private saveDownloadResult(blob: Blob, fileName) {
-    if (this._window.navigator && (this._window.navigator as any).msSaveOrOpenBlob) {
-      (this._window.navigator as any).msSaveOrOpenBlob(
-        blob,
-        fileName
-      );
-    }
-    else {
-      const windowURL = this._window['URL'] || this._window['webkitURL'];
-      const downloadLink = this._document.createElement('a');
-      const urlBlob = windowURL.createObjectURL(new Blob([blob]));
-      downloadLink.href = urlBlob;
-      downloadLink.download = fileName;
-      downloadLink.click();
-      setTimeout(function () { URL.revokeObjectURL(downloadLink.href) }, 4E4);
-    }
+    // if (this._window.navigator && (this._window.navigator as any).msSaveOrOpenBlob) {
+    //   (this._window.navigator as any).msSaveOrOpenBlob(
+    //     blob,
+    //     fileName
+    //   );
+    // }
+    // else {
+    //   const windowURL = this._window['URL'] || this._window['webkitURL'];
+    //   const downloadLink = this._document.createElement('a');
+    //   const urlBlob = windowURL.createObjectURL(new Blob([blob]));
+    //   downloadLink.href = urlBlob;
+    //   downloadLink.download = fileName;
+    //   downloadLink.click();
+    //   setTimeout(function () { URL.revokeObjectURL(downloadLink.href) }, 4E4);
+    // }
   }
 
   private requestDownload(url: string): Observable<HttpEvent<Blob>> {

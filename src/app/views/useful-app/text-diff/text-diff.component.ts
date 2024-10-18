@@ -31,7 +31,7 @@ export class TextDiffComponent implements OnInit, OnDestroy {
     this.visibleData1 = localStorage.getItem(SAVED_TEXT) || ExampleText;
     this.visibleData2 = localStorage.getItem(SAVED_TEXT_2) || ExampleText2;
 
-    this._window.onbeforeunload = () => this.ngOnDestroy();
+    // this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngOnDestroy(): void {

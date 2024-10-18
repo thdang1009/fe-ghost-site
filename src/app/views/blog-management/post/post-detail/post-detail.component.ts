@@ -50,7 +50,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       this.meta.updateTag({ property: 'og:creator', content: creator });
       this.meta.updateTag({ property: 'og:image', content: img });
     });
-    this._window.onbeforeunload = () => this.ngOnDestroy();
+    // this._window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngOnDestroy(): void {
