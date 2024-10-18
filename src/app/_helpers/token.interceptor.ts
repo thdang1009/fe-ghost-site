@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -12,21 +12,27 @@ import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { showNoti } from '@shares/common';
 import { CONSTANT } from '@shares/constant';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const token = localStorage.getItem(CONSTANT.TOKEN);
-    if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: token
-        }
-      });
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem(CONSTANT.TOKEN);
+      if (token) {
+        request = request.clone({
+          setHeaders: {
+            Authorization: token
+          }
+        });
+      }
     }
     request = request.clone({
       headers: request.headers.set('Accept', 'application/json')

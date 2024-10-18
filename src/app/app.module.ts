@@ -6,9 +6,6 @@ import { NgModule, SecurityContext } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { ComponentsModule } from './components/components.module';
-import { AdminLayoutComponent } from './_layouts/admin-layout/admin-layout.component';
-import { GuestLayoutComponent } from './_layouts/guest-layout/guest-layout.component';
 import { TokenInterceptor } from './_helpers/_index';
 import { CommonModule, DatePipe } from '@angular/common';
 import {
@@ -28,19 +25,25 @@ import { MarkdownModule, ClipboardButtonComponent, MARKED_OPTIONS, CLIPBOARD_OPT
 import { AnchorModule } from './_shares/anchor/anchor.module';
 import { AnchorService } from './_shares/anchor/anchor.service';
 import { environment } from '@environments/environment';
+import { GuestLayoutModule } from './_layouts/guest-layout/guest-layout.module';
+import { AdminLayoutModule } from './_layouts/admin-layout/admin-layout.module';
+import { ComponentsModule } from './components/components.module';
+import { SharedModule } from './_shares/shared-module.module';
 
 // NgModule
 @NgModule({
   imports: [
     AnchorModule,
+    BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
     ComponentsModule,
+    SharedModule,
+    HttpClientModule,
+    GuestLayoutModule,
+    AdminLayoutModule,
     RouterModule,
     AppRoutingModule,
-    CommonModule,
     // third party
     // CodeEditorModule.forRoot(),
     NgxGoogleAnalyticsModule.forRoot(environment.gaCode),
@@ -62,8 +65,6 @@ import { environment } from '@environments/environment';
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
-    GuestLayoutComponent,
     DonationComponent,
   ],
   providers: [
@@ -84,12 +85,10 @@ import { environment } from '@environments/environment';
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    CommonModule,
     // third party
     // CodeEditorModule,
     NgxGoogleAnalyticsModule,

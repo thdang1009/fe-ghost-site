@@ -11,10 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { ProgressWithLabelComponent } from './progress-with-label/progress-with-label.component';
 import { GhostSiteBtnComponent } from './ghost-site-btn/ghost-site-btn.component';
 import { ListBadgeComponent } from './list-badge/list-badge.component';
-import { GhostPdfViewerComponent } from './ghost-pdf-viewer/ghost-pdf-viewer.component';
+// import { GhostPdfViewerComponent } from './ghost-pdf-viewer/ghost-pdf-viewer.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 // third party
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+// import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PdfControlPanelComponent } from './pdf-control-panel/pdf-control-panel.component';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { PdfControlPanelComponent } from './pdf-control-panel/pdf-control-panel.
     CommonModule,
     RouterModule,
     FormsModule,
-    PdfViewerModule,
+    // PdfViewerModule,
     DragDropModule,
   ],
   declarations: [
@@ -34,7 +34,7 @@ import { PdfControlPanelComponent } from './pdf-control-panel/pdf-control-panel.
     ProgressWithLabelComponent,
     GhostSiteBtnComponent,
     ListBadgeComponent,
-    GhostPdfViewerComponent,
+    // GhostPdfViewerComponent,
     PdfControlPanelComponent,
   ],
   exports: [
@@ -46,7 +46,7 @@ import { PdfControlPanelComponent } from './pdf-control-panel/pdf-control-panel.
     ProgressWithLabelComponent,
     GhostSiteBtnComponent,
     ListBadgeComponent,
-    GhostPdfViewerComponent,
+    // GhostPdfViewerComponent,
     PdfControlPanelComponent,
   ],
   providers: [

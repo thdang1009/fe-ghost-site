@@ -7,7 +7,6 @@ import { SharedModule } from '@shares/shared-module.module';
 import { JsonExcelComponent } from './json-excel/json-excel.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { TextDiffComponent } from './text-diff/text-diff.component';
-import { TktCodeComponent } from './tkt-code/tkt-code.component';
 import { NgJsonEditorModule } from 'ang-jsoneditor';
 
 
@@ -16,10 +15,8 @@ import { NgJsonEditorModule } from 'ang-jsoneditor';
     JsonBeautifierComponent,
     JsonExcelComponent,
     TextDiffComponent,
-    TktCodeComponent,
   ],
   imports: [
-    CommonModule,
     UsefulAppRoutingModule,
     SharedModule,
     NgxFileDropModule,

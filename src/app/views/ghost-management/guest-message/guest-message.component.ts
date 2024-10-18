@@ -85,7 +85,7 @@ export class GuestMessageComponent implements OnInit {
       email: [null, Validators.required]
     });
     this.activatedRoute.queryParams.subscribe(params => {
-      const id = Number(params.id);
+      const id = Number(params['id']);
       if (id) {
         this.guestMessageService.getGuestMessage(id)
           .subscribe(guestMessage => {

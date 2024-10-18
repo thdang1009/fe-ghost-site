@@ -87,7 +87,7 @@ export class AddFileComponent implements OnInit {
       type: [null, Validators.required],
     });
     this.route.queryParams.subscribe(params => {
-      const id = params.id;
+      const id = params['id'];
       if (id) {
         this.fileService.getFile(id)
           .subscribe(res => {

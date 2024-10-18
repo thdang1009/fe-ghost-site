@@ -70,7 +70,7 @@ export class BookComponent implements OnInit {
       description: [null],
     });
     this.activatedRoute.queryParams.subscribe(params => {
-      const id = params.id;
+      const id = params['id'];
       if (id) {
         this.bookService.getBook(id)
           .subscribe(res => {
@@ -183,15 +183,16 @@ export class BookComponent implements OnInit {
       });
   }
   readThisBook() {
-    const urlGet = this.itemSelected.urlGet;
-    const title = this.itemSelected.title;
-    this.router.navigate(
-      ['../view-book'],
-      {
-        relativeTo: this.activatedRoute,
-        queryParams: { link: urlGet, title: title },
-        queryParamsHandling: 'merge'
-      });
+    alert('Not Implemented Yet!')
+    // const urlGet = this.itemSelected.urlGet;
+    // const title = this.itemSelected.title;
+    // this.router.navigate(
+    //   ['../view-book'],
+    //   {
+    //     relativeTo: this.activatedRoute,
+    //     queryParams: { link: urlGet, title: title },
+    //     queryParamsHandling: 'merge'
+    //   });
   }
   deleteBook(book) {
     const val = confirm(`Delete "${book.title}"?`);

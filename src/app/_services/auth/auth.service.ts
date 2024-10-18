@@ -1,4 +1,4 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable, Output, EventEmitter, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -6,6 +6,7 @@ import { environment } from '@environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CONSTANT } from '@shares/constant';
 import { LoginResponse, ghostLog, handleError } from '@shares/common';
+import { isPlatformBrowser } from '@angular/common';
 
 const apiUrl = environment.apiUrl + '/v1/auth';
 
@@ -20,15 +21,26 @@ export class AuthService {
   loggedInStatus = false;
   redirectUrl: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+
     this.loggedInStatus = this.isLogin();
-    if (this.loggedInStatus) {
-      this.userInfo = JSON.parse(localStorage.getItem(CONSTANT.USER_INFO));
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.loggedInStatus) {
+        this.userInfo = JSON.parse(localStorage.getItem(CONSTANT.USER_INFO));
+      }
     }
   }
 
   isLogin() {
-    return !!localStorage.getItem(CONSTANT.USER_INFO);
+    if (isPlatformBrowser(this.platformId)) {
+      return !!localStorage.getItem(CONSTANT.USER_INFO);
+    }
+    return false;
   }
 
   login(data: any): Observable<any> {
@@ -131,10 +143,14 @@ export class AuthService {
   }
 
   private saveUserLoginInfo(userInfo) {
-    localStorage.setItem(CONSTANT.USER_INFO, JSON.stringify(userInfo));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(CONSTANT.USER_INFO, JSON.stringify(userInfo));
+    }
   }
   private clearUserInfo() {
-    localStorage.removeItem(CONSTANT.USER_INFO);
-    localStorage.removeItem(CONSTANT.TOKEN);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(CONSTANT.USER_INFO);
+      localStorage.removeItem(CONSTANT.TOKEN);
+    }
   }
 }

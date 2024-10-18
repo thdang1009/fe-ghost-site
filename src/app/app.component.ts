@@ -29,8 +29,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.analyticService.logAccess()
-      .subscribe(_ => { }, _ => { });
+    // this.analyticService.logAccess()
+    //   .subscribe(_ => { }, _ => { });
     this.socketService.setupSocketConnection();
     if (this.authService.isMember()) {
       this.readingInfoService.getReadingInfo();

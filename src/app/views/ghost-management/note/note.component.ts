@@ -79,7 +79,7 @@ export class NoteComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
-      const id = Number(params.id);
+      const id = Number(params['id']);
       if (id) {
         this.noteService.getNote(id)
           .subscribe(res => {

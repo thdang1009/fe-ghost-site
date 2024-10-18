@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, inject } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
-import { DOCUMENT, Location } from '@angular/common';
+import { CommonModule, DOCUMENT, Location } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { checkIsInPDFView } from '@shares/common';
 

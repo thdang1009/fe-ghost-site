@@ -10,28 +10,28 @@ import { AddFileComponent } from './file/add-file/add-file.component';
 import { FileListComponent } from './file/file-list/file-list.component';
 import { BookComponent } from './book/book.component';
 import { SharedModule } from '@shares/shared-module.module';
-import { ViewBookComponent } from './view-book/view-book.component';
+// import { ViewBookComponent } from './view-book/view-book.component';
 import { ComponentsModule } from '@components/components.module';
 
 @NgModule({
-    declarations: [
-        BookComponent,
-        AddFileComponent,
-        FileListComponent,
-        ChooseFileComponent,
-        ViewBookComponent,
-    ],
-    providers: [
-        DatePipe,
-    ],
-    imports: [
-        CommonModule,
-        FileManagementRoutingModule,
-        FileUploadModule,
-        SharedModule,
-        HttpClientModule,
-        ReuseComponentModule,
-        ComponentsModule
-    ]
+  declarations: [
+    BookComponent,
+    AddFileComponent,
+    FileListComponent,
+    ChooseFileComponent,
+    // ViewBookComponent,
+  ],
+  providers: [
+    DatePipe,
+  ],
+  imports: [
+    CommonModule,
+    FileManagementRoutingModule,
+    FileUploadModule,
+    SharedModule,
+    HttpClientModule,
+    ReuseComponentModule,
+    ComponentsModule
+  ]
 })
 export class FileManagementModule { }

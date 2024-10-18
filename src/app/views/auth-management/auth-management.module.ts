@@ -11,6 +11,10 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 
 
 @NgModule({
+  imports: [
+    SharedModule,
+    AuthManagementRoutingModule,
+  ],
   declarations: [
     LoginComponent,
     LogoutComponent,
@@ -18,10 +22,5 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     ResetPasswordComponent,
     ChangePasswordComponent
   ],
-  imports: [
-    CommonModule,
-    AuthManagementRoutingModule,
-    SharedModule
-  ]
 })
 export class AuthManagementModule { }

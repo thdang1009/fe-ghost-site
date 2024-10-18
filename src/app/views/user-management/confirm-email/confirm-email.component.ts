@@ -17,7 +17,7 @@ export class ConfirmEmailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const code = this.route.snapshot.params.confirmationCode;
+    const code = this.route.snapshot.params['confirmationCode'];
     this.authenService.confirmEmail(code)
       .subscribe(_ => {
         showNoti(`Successfully confirm email!`, 'success');

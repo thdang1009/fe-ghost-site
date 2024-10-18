@@ -9,7 +9,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "e2e": "ng e2e",
-    "serve:ssr:fe-ghost-site": "node dist/fe-ghost-site/server/server.mjs"
+    "serve:ssr:fe-ghost-site": "ng build && node dist/fe-ghost-site/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -48,7 +48,6 @@
     "jsoneditor": "^9.5.8",
     "moment": "^2.29.3",
     "ng2-file-upload": "6.0.0",
-    "ng2-pdf-viewer": "^10.2.2",
     "ngx-autosize": "2.0.4",
     "ngx-file-drop": "16.0.0",
     "ngx-google-analytics": "14.0.1",

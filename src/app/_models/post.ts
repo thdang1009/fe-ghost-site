@@ -1,4 +1,4 @@
-import { Tag } from "./_index";
+import { Tag } from "./tag";
 
 
 export class Post {
@@ -11,7 +11,7 @@ export class Post {
   description?: String;
   content?: String; // content
   postReference?: String;
-  postImgUrls? : String[];
+  postImgUrls?: String[];
   postBackgroundImg?: String;
   isPinned?: Boolean;
   tags?: Tag[];
