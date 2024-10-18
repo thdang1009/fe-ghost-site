@@ -25,3 +25,5 @@ This is a personal blogs including some other features like:
 - re-enable View book by finding solution or new Pdf lib
 - re-enable RunJS
 - re-structure module
+# What to do Oct 19th
+- Find and move out of creative time because it's jquery heavy project template, consider which lib can be use SSR before decide.
